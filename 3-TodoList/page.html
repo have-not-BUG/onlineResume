@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <style>
+    [v-cloak] {
+        display: none;
+    }
+    div{
+    	text-align:left;
+    }
+    ul,li{
+    	list-style: none;
+    	margin: 10px;
+    	padding: 10px;
+    	border:1px solid #333;
+    }
+    .todos li:nth-of-type(odd){
+    	background-color: #ccc
+    }
+    .notDone{
+    	color: red;
+    }
+    .done{
+    	color: green;
+    }
+    .todos button{
+    	float: right;
+    	margin-right: 10px;
+    	cursor: pointer;
+    }
+    .newTask {
+    	text-align: center;    	
+    }
+    .newTask input{
+    	width: 55%;
+    	height: 35px;
+    }
+    .clearfix{
+    	display: block;
+    	content: "";
+    	clear: both;
+    }
+
+
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="newTask">
+            <input type="text" placeholder="请输入待办事项" v-model="newTodo" @keypress.enter="addTodo">
+        </div>
+        <ol class="todos">
+            <li v-for="todo in todoList" class="clearfix">
+                <input type="checkbox" v-model="todo.done"> {{todo.title}} {{todo.createdAt}}
+                <span class="done" v-if="todo.done">已完成</span>
+                <span class="notDone" v-else>未完成</span>
+                <button @click="removeTodo(todo)">X</button>
+            </li>
+        </ol>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>
