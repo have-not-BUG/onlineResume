@@ -101,7 +101,7 @@
             </div>
             <ol class="todos">
                 <li v-for="todo in todoList">
-                    <input type="checkbox" v-model="todo.done"> {{ todo.title }}
+                    <input type="checkbox" v-model="todo.done" @change='saveOrUpdateTodos()'> {{ todo.title }}
                     <span v-if="todo.done" class="done">已完成</span>
                     <span class="notDone" v-else>未完成</span>
                     <button @click="removeTodo(todo)">X</button>
