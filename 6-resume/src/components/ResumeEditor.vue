@@ -17,18 +17,16 @@
                <div class="subitem" v-for="subitem in resume[item.field]">
                  <div class="resumeField" v-for="(value,key) in subitem">
                    <label >{{key}}</label>
-                   <input type="text" :value="value">
+                   <input type="text" :value="value" v-model="subitem[key]">
                  </div>
                  <hr>
                </div>
              </div>
              <div v-else class="resumeField" v-for="(value,key) in resume[item.field]">
-
                <label> {{key}} </label>
                <input type="text" v-model="resume[item.field][key]" >
              </div>
            </li>
-
          </ol>
   </div>
 </template>
@@ -36,48 +34,23 @@
 <script>
 export default {
   name: 'ResumeEditor',
-  data(){
-    return {
-               selected: 'profile',
-               resume: {
-                 config: [
-                   {field:'profile',icon:'id'},
-                   {field:'work history',icon:'work'},
-                   {field:'education',icon:'book'},
-                   {field:'projects',icon:'heart'},
-                   {field:'awards',icon:'cup'},
-                   {field:'contacts',icon:'phone'}],
-                 profile: {
-                     name: '李某人',
-                       city: 'xx',
-                       title: '标题'
-                   },
-                 'work history': [
-                   {company:'公司名称2',content:'前端工程师'},
-                   {company:'公司名称1',content:'工艺工程师'},
-
-                 ],
-                   education: [
-                     { school:'南昌大学',content:'本科' },
-                     { school:'南昌大学',content:'研究生' },
-                   ],
-                   projects: [
-                     {name:'project A', content:'项目A描述'},
-                     {name:'project B',content:'项目B描述'},
-                   ],
-                   awards: [
-                     { name:'awards A',content:'奖项A说明' },
-                     {name:'awards B',content:'奖项B说明'},
-                   ],
-                   contacts: [
-                     {contact:'phone',content:'1388888888'},
-                     {contact:'qq',content:'666666'},
-                   ]
-
-               }
+    computed:{
+    selected:{
+      get(){
+        return this.$store.state.selected
+      },
+      set(value){
+        return this.$store.commit('switchTab',value)
+      }
+    },
+    resume (){
+    return this.$store.state.resume
+    }
+    },
+    methods:{
 
     }
-  }
+
 }
 </script>
 
